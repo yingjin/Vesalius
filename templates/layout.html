@@ -1,0 +1,57 @@
+<html>
+  <head>
+
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Vesalius Project</title>
+    <meta name="description" content="This is a site to interact with a physical vesalius model"  />
+    <meta name="keywords" content="Javascript, python, jQuery, AngularJS, Flask, SocketIO, Vesalius" />
+    <meta name="author" content="Ying Jin" />
+
+    <style>
+    html, body {
+        width:100%;
+        height:100%
+    }
+
+    /* custom full-screen styles */
+    :-webkit-full-screen .main {
+     background-color: #ccc;
+     font-size: 24px;
+     width: 95%;
+    }
+    :-moz-full-screen .main {
+     background-color: #ccc;
+     font-size: 24px;
+     width: 95%;
+    }
+    :-webkit-full-screen .fs{display:none}
+    :-moz-full-screen .fs{display:none}
+    :-webkit-full-screen .rs{display:block}
+    :-moz-full-screen .rs{display:block}
+    </style>
+
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/lib/css/animate.min.css" />
+ 
+    <!-- add scripts -->
+    <script src="/static/lib/js/fullscreen.dg.js"></script>
+    <script src="/static/lib/js/jquery.min.js"></script>
+    <script data-require="angular.min.js@*" data-semver="1.5.5" src="/static/lib/js/angular.min.js"></script>
+    <script data-require="angular-route@*" data-semver="1.5.5" src="/static/lib/js/angular-route.min.js"></script>
+    <script data-require="angular-route@*" data-semver="1.5.5" src="/static/lib/js/angular-animate.min.js"></script>
+    
+    <link href="/static/lib/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/lib/js/bootstrap.min.js"></script>
+    <script src="/static/lib/js/ui-bootstrap-tpls.js"></script>
+
+    <script type="text/javascript" src="/static/lib/js/socket.io.min.js"></script>
+   
+    <script src="/static/js/vesalius.js"></script>
+
+  </head>
+  <body>
+  {% block content %}
+  {% endblock content %}
+  </body>
+</html>
