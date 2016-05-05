@@ -10,10 +10,13 @@ The application is intended to run on a raspberry pi which connects to the physi
 You need to have python-pip installed first if you don't have one.
 
 On Linux -
- >sudo apt-get update 
- >sudo apt-get upgrade
- >sudo apt-get install python-picamera
- >sudo apt-get install python-pip
+>sudo apt-get update 
+
+>sudo apt-get upgrade
+
+>sudo apt-get install python-picamera
+
+>sudo apt-get install python-pip
 
 
 On Mac OS -
