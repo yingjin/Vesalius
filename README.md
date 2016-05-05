@@ -31,6 +31,7 @@ Last, run setup.sh under project top directory.
 
 If there is no error, you are ready to go. Activate the virtual environment
 > source ./venv/bin/activate
+
 > python vesalius.py
 
 Check the site on 127.0.0.1:5000
