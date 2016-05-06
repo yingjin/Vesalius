@@ -1,2 +1,4 @@
 # ignore the .DS_Store
 .DS_Store
+venv/
+*.pyc
