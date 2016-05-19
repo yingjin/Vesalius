@@ -48,9 +48,11 @@
     <script type="text/javascript" src="/static/lib/js/socket.io.min.js"></script>
    
     <script src="/static/js/vesalius.js"></script>
-
+    <script src="/static/js/resizer.js"></script>
+    
+    
   </head>
-  <body>
+  <body onresize="cpresize()">
   {% block content %}
   {% endblock content %}
   </body>

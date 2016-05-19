@@ -4,12 +4,9 @@
     <!-- SVG vesalius -->
     <div id="left" style="position:absolute;width:456px;height:722px">
     
-        <div style="position:absolute; z-index:2"><img src="/static/svg/vesalius-outline-mask-blacks.gif" style="width:100%;height:100%"></div>
-
-        <div style="position:absolute; z-index:1"><img src="/static/svg/vesalius-outline-mask-highlights.gif" style="width:100%;height:100%"></div>
-          
-        <vesalius-svg style="position:absolute; z-index:3;width:100%;height:100%" ></vesalius-svg>
-       
+		<canvas id="blacks_layer" width="100%" height="100%" style="position: absolute; left: 0; top: 0; z-index: 2;"></canvas>
+		<canvas id="shading_layer" width="100%" height="100%" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>          
+		<canvas id="colors_layer" width="100%" height="100%" style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>       
     </div>
 
     <div id="right" style="position:relative;width:900px;height:922px;left:500px;overflow-x:hidden;overflow-y:hidden">
