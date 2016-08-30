@@ -2,7 +2,7 @@
 <div id="container" style="position:absolute;">
 
     <!-- SVG vesalius -->
-    <div id="left" style="position:absolute;width:456px;height:722px">
+    <div id="left" style="position:absolute;width:789px;height:1250px">
     
         <div style="position:absolute; z-index:2"><img src="/static/svg/vesalius-outline-mask-blacks.gif" style="width:100%;height:100%"></div>
 
@@ -12,26 +12,66 @@
        
     </div>
 
-    <div id="right" style="position:relative;width:900px;height:922px;left:500px;overflow-x:hidden;overflow-y:hidden">
+    <!--div id="right" style="position:relative;width:1000px;height:1250px;left:790px;overflow-x:hidden;overflow-y:hidden;font-size:18px">
 
         <div name="vesalius" ng-repeat="item in state.descriptionList">
 
             <h1><p id="head_text" style="text-align:left" ng-bind-html="item['header_text'] | unsafe"></p></h1>
 
-            <div id="body_text" style="height:200px;overflow-y:scroll">
-                <p ng-bind-html="item['description_text'] | unsafe"></p>
+            <div id="body_text" style="height:500px;overflow-y:scroll;width:1000px">
+            	<span ng-repeat="dep in item.description_text">
+            		<span ng-if="dep['description']">
+                		<span ng-bind-html="dep['description'] | unsafe"></span>
+                	</span>
+                	<span ng-if="dep.citation['cit_tip']">
+                		<a href="#" class="fn" uib-tooltip="{{dep.citation['cit_tip']}}">[{{dep.citation['cit_short']}}]</a>
+                	</span>
+                </span>
+            </div>
+        </div-->
+    <div id="right" style="position:relative;width:1000px;height:1250px;left:790px;overflow-x:hidden;overflow-y:hidden;font-size:18px">
+        <div name="vesalius" ng-repeat="item in state.descriptionList">
+
+            <h1><p id="head_text" style="text-align:left" ng-bind-html="item['header_text'] | unsafe"></p></h1>
+
+            <div id="body_text" style="height:500px;overflow-y:scroll;width:1000px">
+              		<span ng-bind-html="item['description_text'] | unsafe"></span>
             </div>
         </div>
         <br />
 
-      <div id="images_carousel" style="height:550px;overflow:hidden;"  ng-show="state.mediaList.length > 0">
+		<script type="text/ng-template" id="myPopupFullImage.html">
+        	<div class="modal-header">
+            	<h3 class="modal-title">Full Image</h3>
+        	</div>
+        	<div class="modal-body">
+            
+            	<img ng-src="/static/images/full-tables/{{fullimagename}}" width="55%"></img>
+                
+        	</div>
+        	<div class="modal-footer">
+            	<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        	</div>
+    	</script>
+
+      <div id="images_carousel" style="height:700px;width:1200px;overflow:hidden;"  ng-show="state.mediaList.length > 0">
 
         <uib-tabset active="active" class='tabtitle' >
             <uib-tab index="$index" ng-repeat="item in state.mediaList track by $index" heading="{{item['source_specifications']}}" active="item.active">
-              <p class="tabimage"><img ng-src="/static/images/{{item['image']}}" class='slide'/></p>
+              <p class="tabimage">
+              	<a href="#" ng-click="$event.preventDefault();open(item['fullimagename'])">
+              		<img ng-src="/static/images/{{item['image']}}"></img>
+              	</a>
+	          </p>
+              <!--div class="tabcontent" ng-repeat="dep in item.description_text">
+                 <p ng-bind-html="dep['description']|unsafe">
+                 	
+                 </p> 
+                 <a href="#" class="fn" uib-tooltip="{{item['citation_type']}}: {{item['citation_text']}}">[{{item['citation_short_display']}}]</a> 
+              </div--> 
               <div class="tabcontent">
-                 <p ng-bind-html="item['description']|unsafe"></p> <a href="#" class="fn" uib-tooltip="{{item['citation_type']}}: {{item['citation_text']}}">[fn:  {{item['citation_short_display']}}]</a> 
-              </div> 
+                 <p ng-bind-html="item['description_text']|unsafe"></p> 
+              </div>
             </uib-tab>
             
         </uib-tabset>

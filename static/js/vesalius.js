@@ -1,5 +1,5 @@
 angular
-    .module('VesaliusApp', ['ngRoute', 'ui.bootstrap'])
+    .module('VesaliusApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
@@ -18,7 +18,9 @@ angular
         '$scope',
         '$http',
         'windowAlert',
-        function($scope, $http, windowAlert) {
+        '$uibModal',
+        '$log',
+        function($scope, $http, windowAlert, $uibModal, $log) {
 
 
             $scope.state = {};
@@ -30,7 +32,7 @@ angular
             $scope.state.descriptionList = [];
             $scope.state.mediaList = [];
 
-
+			// ============= Code for socket IO   ============= 
             $scope.namespace = '/vesalius5'; // change to an empty string to use the global namespace
 
             // the socket.io documentation recommends sending an explicit package upon connection
@@ -59,6 +61,8 @@ angular
                     socket.emit('zonegroup', zonegroup);
                 }
             }
+			//  =============  End of code for socket IO  ============= 
+
 
             $scope.retrieveMetadataByZonegroup = function(zonegroup) {
                 $http
@@ -104,9 +108,49 @@ angular
                     organs[i].style.opacity=op;
                 }
             }
+            
+            //  =============  Code for modal   ============= 
+			$scope.animationsEnabled = true;
+			$scope.fullimagename = "";
 
-        }
+  			$scope.open = function (fullimagename) {
+  			
+ // 				$scope.fullimagename = fullimagename;
+ // 				console.log(fullimagename);
+				var size = "lg";
+	   			var modalInstance = $uibModal.open({
+	      			animation: $scope.animationsEnabled,
+	      			templateUrl: 'myPopupFullImage.html',
+	      			controller: 'ModalInstanceCtrl',
+	      			scope: $scope,
+	      			size: size,
+	      			resolve: {
+	        			fullimagename: function () {
+	        				//console.log("in the resolve");
+	          				return fullimagename;
+	        			}
+	      			}
+	      				
+	    		});
+	    		
+	    		 modalInstance.result.then(function () {
+	    		 	//console.log("in the modalInstance.result.then");
+      				//$scope.selected = selectedItem;
+			    }, function () {
+			      $log.info('Modal dismissed at: ' + new Date());
+			    });
+        	}
+          	//  =============  END Code for modal   ============= 
+         }
     ])
+    .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, fullimagename) {
+
+//		  console.log("I am in ModalInstanceCtrl");
+  		  $scope.fullimagename = fullimagename;
+		  $scope.ok = function () {
+		    $uibModalInstance.close('close');
+		  };
+		})
     .directive('vesaliusSvg', function()  {
         return{
             restrict: 'AE',
@@ -139,6 +183,8 @@ angular
            }
         }
     })
+    
+  
   
     .filter('unsafe', function($sce) {
         return function(val) {

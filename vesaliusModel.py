@@ -24,4 +24,11 @@ class VesaliusModel:
         rows = _cursor.execute(
             'SELECT associated_media.image, associated_media.description, associated_media.source_specifications, bibliography.citation_text, bibliography.citation_short_display, bibliography.citation_type FROM associated_media, bibliography WHERE associated_media.zone_group=? and associated_media.source=bibliography.citation_id', (zone_group, )
             )
-        return [{'image': r['image'], 'description': r['description'], 'source_specifications': r['source_specifications'], 'citation_text': r['citation_text'], 'citation_short_display': r['citation_short_display'], 'citation_type': r['citation_type']} for r in rows]
+        return [{'image': r['image'], 'description_text': r['description'], 'source_specifications': r['source_specifications'], 'citation_text': r['citation_text'], 'citation_short_display': r['citation_short_display'], 'citation_type': r['citation_type']} for r in rows]
+
+    @classmethod
+    def retrieve_citation(cls):
+        rows = _cursor.execute(
+            'SELECT  bibliography.citation_text, bibliography.citation_short_display, bibliography.citation_type FROM bibliography'
+            )
+        return [{'citation_short_display': r['citation_short_display'], 'citation_text': r['citation_text'], 'citation_type': r['citation_type']} for r in rows]
