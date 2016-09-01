@@ -34,13 +34,13 @@ def background_thread2():
     count = 0
     zonegroups = ('76', '76', '76', '76', '76', '76')
     time.sleep(1)
-    while True:
+    '''while True:
         count += 1
         zonegroup = zonegroups[count%6]
         socketio.emit('my response',
                      {'data': 'Server generated event', 'zonegroup': zonegroup},
                       namespace='/vesalius5')
-        time.sleep(10)
+        time.sleep(10)'''
 
 @app.route('/')
 def index():
