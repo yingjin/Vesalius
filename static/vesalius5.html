@@ -35,8 +35,19 @@
             <h1><p id="head_text" style="text-align:left" ng-bind-html="item['header_text'] | unsafe"></p></h1>
 
             <div id="body_text" style="height:500px;overflow-y:scroll;width:1000px">
-              		<span ng-bind-html="item['description_text'] | unsafe"></span>
+            	<span ng-repeat="dep in item.description_text">
+            		<span ng-if="dep['description']">
+                		<span ng-bind-html="dep['description'] | unsafe"></span>
+                	</span>
+                	<span ng-if="dep.zoneinfo['zone_id']">
+                		<b><a ng-click="sendBackToServer(dep.zoneinfo['zone_group']);setAndRetrieveMetadataByZonegroup(dep.zoneinfo['zone_group'])"><span ng-bind-html="dep.zoneinfo['zone_id'] | unsafe"></span></a></b>
+                	</span>
+                </span>
             </div>
+ 
+            <!--div id="body_text" style="height:500px;overflow-y:scroll;width:1000px">
+              		<span ng-bind-html="item['description_text'] | unsafe"></span>
+            </div-->
         </div>
         <br />
 
@@ -70,7 +81,8 @@
                  <a href="#" class="fn" uib-tooltip="{{item['citation_type']}}: {{item['citation_text']}}">[{{item['citation_short_display']}}]</a> 
               </div--> 
               <div class="tabcontent">
-                 <p ng-bind-html="item['description_text']|unsafe"></p> 
+                 <p ng-bind-html="item['description_text']|unsafe"></p>
+                 <p>{{item['citation_type']}}: {{item['citation_short_display']}}. {{item['citation_text']}}</p> 
               </div>
             </uib-tab>
             

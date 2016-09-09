@@ -55,6 +55,8 @@ def index():
 app.add_url_rule('/metadataByZonegroup/<string:zone_group>',
     view_func=MetadataByZonegroup.as_view('metadata_by_zonegroup'), methods=['GET'])
 
+#app.add_url_rule('/metadataByZoneid/<string:zone_id>',
+#    view_func=MetadataByZoneid.as_view('metadata_by_zoneid'), methods=['GET'])
 
 
 @socketio.on('connect', namespace='/vesalius5')

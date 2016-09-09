@@ -86,7 +86,6 @@ angular
                     zonegroup = $scope.RETRIEVE_DEFAULT_ZONEGROUP;
                 }
                 
-
                 if ($scope.selectedzonegroup != zonegroup){
                     $scope.state.retrieveZonegroup = zonegroup;
                     $scope.retrieveMetadataByZonegroup($scope.state.retrieveZonegroup);
@@ -98,7 +97,28 @@ angular
                 }
             };
 
+/*          $scope.retrieveMetadataByZoneid = function(zoneid) {
+                $http
+                    .get('/metadataByZoneid/' + zoneid)
+                    .success(function(data, status, headers, config) {
+                        if (data.success) {
+                            $scope.zonegroup = data.zonegroup;
+                        } else {
+                            windowAlert('Retrieval failed - '+data.zonegroup);
+                        }
+                    })
+                    .error(function(data, status, headers, config) {
+                        windowAlert("Retrieval failed - " + data.zonegroup);
+                    });
+            };
 
+            $scope.setAndRetrieveMetadataByZoneid = function(zoneid) {
+            	var zonegroup = $scope.retrieveMetadataByZoneid(zoneid)
+            	$scope.setAndRetrieveMetadataByZonegroup(zonegroup)
+               
+            };
+
+*/
             $scope.changeOpacityById = function(id, op){
 
                 var organs = document.getElementsByClassName(id);

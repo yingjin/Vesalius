@@ -32,3 +32,11 @@ class VesaliusModel:
             'SELECT  bibliography.citation_text, bibliography.citation_short_display, bibliography.citation_type FROM bibliography'
             )
         return [{'citation_short_display': r['citation_short_display'], 'citation_text': r['citation_text'], 'citation_type': r['citation_type']} for r in rows]
+
+    @classmethod
+    def retrieve_zoneinfo(cls):
+        
+        rows = _cursor.execute(
+            'SELECT  zone_id, zone_group FROM zone'
+            )
+        return [{'zone_id': r['zone_id'], 'zone_group': r['zone_group']} for r in rows]
