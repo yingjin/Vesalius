@@ -26,9 +26,6 @@ On Mac OS -
 Then install virtual environment 
 > pip install virtualenv
 
-On raspberry pi, have to install python source to compile modules
-> sudo apt-get install python-dev
-
 Last, run setup.sh under project top directory.
 > ./setup.sh
 
