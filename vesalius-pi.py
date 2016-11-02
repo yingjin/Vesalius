@@ -5,6 +5,8 @@
 # the best option based on available packages.
 async_mode = None
 
+flag = 0
+
 if async_mode is None:
     try:
         # monkey patching is necessary because this application uses a background
@@ -15,7 +17,7 @@ if async_mode is None:
     except ImportError:
         pass
 
-import smbus
+import serial
 import sys
 import subprocess
 import time
@@ -30,16 +32,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode='eventlet')
 
-bus = smbus.SMBus(1)
-address1 = 0x08
-flag = 0
-
-'''def readNumber2():
-    number = bus.read_byte(address1)
-    return number
-'''
+ser = serial.Serial('/dev/ttyACM0', 9600)
+prevNum = 0
 
 thread = None
+
 
 zonegroups = {
     0: '0',
@@ -90,7 +87,7 @@ zonegroups = {
     45: '961',
     46: '920,955,956,959',
     47: '964,965',
-    48: '923,50,51,52',
+    48: '923,50,51',
     49: '121',
     50: '120',
     51: '117',
@@ -99,7 +96,7 @@ zonegroups = {
     54: '964,965',
     55: '946',
     56: '916,110,111,112,113',
-    57: '923,50,51,52',
+    57: '923,50,51',
     58: '928,52',
     59: '928,52',
     60: '926',
@@ -117,33 +114,29 @@ zonegroups = {
     72: '54'
     }
 
-def readNumber1():
-    try:
-        number = bus.read_byte(address1)
-        flag = 0
-        return number
-    except IOError:
-        print("IOError in read Data")
-        subprocess.call(['i2cdetect', '-y', '1'])
-        flag = 1
-        return 0
+
+
 
 def background_thread1():
     count = 0
-    time.sleep(0.05)
+  
     while True:
-        if flag == 0:
-            sig = readNumber1()
-            
-            if sig > 0 and sig < 73:
-                print sig
-                zonegroup = zonegroups[sig]
+        number = ser.readline()
+        number = number.split('\r')
+        number = number[0]
+
+        try:
+            number = int(number)
+            if number != 0 and number != prevNum:
+                
+                zonegroup = zonegroups[number]
                 socketio.emit('my response',
-                         {'data': 'Server generated event', 'zonegroup': zonegroup},
-                          namespace='/vesalius5')
-            time.sleep(0.005)
-        else:
-            flag = 0
+                     {'data': 'Server generated event', 'zonegroup': zonegroup},
+                      namespace='/vesalius5')
+            prevNum = number
+        except ValueError:
+            print ''
+       
         
 def background_thread2():
     '''"""Example of how to send server generated events to clients."""
